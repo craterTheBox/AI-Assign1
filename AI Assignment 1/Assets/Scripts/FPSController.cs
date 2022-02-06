@@ -12,8 +12,7 @@ public class FPSController : MonoBehaviour
     [SerializeField] KeyCode moveLeftKey = KeyCode.A;
     [SerializeField] KeyCode moveRightKey = KeyCode.D;
 
-    [SerializeField] KeyCode touchDoorKey = KeyCode.Mouse0;
-    [SerializeField] KeyCode openDoorKey = KeyCode.E;
+    [SerializeField] KeyCode openDoorKey = KeyCode.Mouse0;
     
     [Header("Camera Settings")]
     [Tooltip("Settings to tweak the camera inputs and FOV.")]
@@ -31,14 +30,17 @@ public class FPSController : MonoBehaviour
 
     //Game Objects
     [SerializeField] Camera playerView;
+    private CharacterController charController;
 
     float InvertVertical = 1.0f;
     float InvertHorizontal = 1.0f;
     Vector3 rotation = new Vector3(0, 0, 0);
-    bool isPaused = false;
+    bool cameraPause = false;
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
+        charController = GetComponent<CharacterController>();
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
        
@@ -56,11 +58,27 @@ public class FPSController : MonoBehaviour
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
+        
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+            cameraPause = !cameraPause;
+            Cursor.visible = !Cursor.visible;
+            if (cameraPause)
+                Cursor.lockState = CursorLockMode.None;
+            else 
+                Cursor.lockState = CursorLockMode.Locked;
+        }
+
         MouseInput();
         Movement();
+        
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            OpenDoor();
     }
 
     void MouseInput() {
+        if (cameraPause)
+            return;
+
         if (rotation.x <= -15)
             rotation.x = -15;
         if (rotation.x >= 15)
@@ -83,16 +101,25 @@ public class FPSController : MonoBehaviour
     }
 
     void Movement() { //This whole script is borked. Change all this
-        if (isPaused)
-            return;
+        float horiInput = 0.0f;
+        float vertInput = 0.0f;
+        
+        if (Input.GetKey(moveForwardKey)) vertInput = 1.0f;
+        else if (Input.GetKey(moveBackwardKey)) vertInput = -1.0f;
+        if (Input.GetKey(moveRightKey)) horiInput = 1.0f;
+        else if (Input.GetKey(moveLeftKey)) horiInput = -1.0f;
 
-        if (Input.GetKey(moveForwardKey))
-            transform.Translate(new Vector3(0.0f, 0.0f, 1.0f) * movementSpeed * Time.deltaTime);
-        if (Input.GetKey(moveBackwardKey))
-            transform.Translate(new Vector3(0.0f, 0.0f, -1.0f) * movementSpeed * Time.deltaTime);
-        if (Input.GetKey(moveLeftKey))
-            transform.Translate(new Vector3(-1.0f, 0.0f, 0.0f) * movementSpeed * Time.deltaTime);
-        if (Input.GetKey(moveRightKey))
-            transform.Translate(new Vector3(1.0f, 0.0f, 0.0f) * movementSpeed * Time.deltaTime);
+        Vector3 forwardMovement = transform.forward * vertInput;
+        Vector3 rightMovement = transform.right * horiInput;
+
+        charController.SimpleMove(Vector3.ClampMagnitude(forwardMovement + rightMovement, 1.0f) * movementSpeed);
+
+        if (vertInput != 0 || horiInput != 0)
+            charController.Move(Vector3.down * charController.height / 2 * Time.deltaTime);
     }
+
+    void OpenDoor() {
+        //oops
+    }
+
 }
