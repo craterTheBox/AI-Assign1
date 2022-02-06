@@ -58,12 +58,65 @@ public class DoorManager : MonoBehaviour
 
     //PURELY TESTING THE WATERS RIGHT NOW TO FIGURE THIS ONE OUT
     void ProbabilityCalc() {
+        bool[,] doorProperties = new bool[20, 3]{   {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+                                                    {false, false, false}, //
+        };
+
+        bool[,] probabilities = new bool[8,3]{  {true, true, true}, //0.05
+                                                {true, true, false},    //0.30
+                                                {true, false, true},    //0.03
+                                                {true, false, false},   //0.21
+                                                {false, true, true},    //0.06
+                                                {false, true, false},   //0.11
+                                                {false, false, true},   //0.20
+                                                {false, false, false},  //0.04
+        };
+        float[] percentOfDoors = {0.05f, 0.30f, 0.03f, 0.21f, 0.06f, 0.11f, 0.20f, 0.04f};
+
         int totalDoors = Doors.Length;
+        
+        int[] numberOfDoorsWithThis = new int[percentOfDoors.Length];
 
-        float percentageOfDoors = 0.05f;
+        for (int i = 0; i < percentOfDoors.Length; i++) {
+            numberOfDoorsWithThis[i] = (int)((float)totalDoors * percentOfDoors[i]);
+        }
 
-        int numberOfDoorsWithThis = (int)((float)totalDoors * percentageOfDoors);
+        /*
+        for (int i = 0; i < totalDoors; i++) {
+            if (probabilities[i, 0])
+                Doors[i].GetComponent<DoorProperties>().setIsHot(true);
+            else if (!probabilities[i, 0])
+                Doors[i].GetComponent<DoorProperties>().setIsHot(false);
 
+            if (probabilities[i, 1])
+                Doors[i].GetComponent<DoorProperties>().setIsNoisy(true);
+            else if (!probabilities[i, 1])
+                Doors[i].GetComponent<DoorProperties>().setIsNoisy(false);
+
+            if (probabilities[i, 2])
+                Doors[i].GetComponent<DoorProperties>().setIsSafe(true);
+            else if (!probabilities[i, 2])
+                Doors[i].GetComponent<DoorProperties>().setIsSafe(false);
+        }
+        //*/
 
     }
 
