@@ -1,3 +1,10 @@
+/**************************************************
+*   AI for Games - Assignment 1
+*
+*   Carter Menary, 100700587
+*   2022-02-06
+**************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +18,9 @@ public class DoorManager : MonoBehaviour
     [Header("File")]
     [Tooltip("This is the stuff for the .txt file.")]
     [SerializeField] bool useFile; //when true, this will attempt to use the file
-    [SerializeField] string filename;
+    [SerializeField] string filename; //the name of the file, this is to make sure reading the file works properly
+
+    //ADD VARIABLES AND THINGS FOR THE ACTUAL PROBABILITIES AND STATES TO BE STORED IN
 
     [Header("Overwriting")]
     [Tooltip("This will overwrite any of the default states or imported file states. Purely for testing purposes.")]
@@ -24,7 +33,15 @@ public class DoorManager : MonoBehaviour
 
     void Start()
     {
-        
+        if (useFile && (filename != "")) {
+            print("Using file located at \"" + filename + "\" for probabilities.");
+
+            //read file and assign the values to the variables
+
+            ProbabilityCalc();
+
+            //other functions to set all the new values
+        }
     }
 
     void Update()
@@ -35,11 +52,22 @@ public class DoorManager : MonoBehaviour
         ToggleSafeDoor();
         //END OF DEVELOPER STUFF
 
+        
+
+    }
+
+    //PURELY TESTING THE WATERS RIGHT NOW TO FIGURE THIS ONE OUT
+    void ProbabilityCalc() {
+        int totalDoors = Doors.Length;
+
+        float percentageOfDoors = 0.05f;
+
+        int numberOfDoorsWithThis = (int)((float)totalDoors * percentageOfDoors);
 
 
     }
 
-    //These functions literally just serve the purpose of making sure that 
+    //These functions below just serve the purpose of making sure that 
     //  the foreach loop and long single line to swap the property worked. 
     void ToggleHotDoor() {
         if (tempToggleHot == toggleHot)

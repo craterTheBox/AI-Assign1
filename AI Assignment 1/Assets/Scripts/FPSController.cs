@@ -1,3 +1,10 @@
+/**************************************************
+*   AI for Games - Assignment 1
+*
+*   Carter Menary, 100700587
+*   2022-02-06
+**************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,7 +78,7 @@ public class FPSController : MonoBehaviour
         MouseInput();
         Movement();
         
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(openDoorKey))
             OpenDoor();
     }
 
