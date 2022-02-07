@@ -2146,8 +2146,9 @@ MonoBehaviour:
   - {fileID: 1793851497}
   - {fileID: 1857061011}
   - {fileID: 183629980}
-  useFile: 0
-  filename: 
+  useFile: 1
+  filename: Assets/probabilities.txt
+  file: {fileID: 4900000, guid: eefea9fe44e1bda4baa78d7a4a7433d7, type: 3}
   toggleHot: 0
   toggleNoisy: 0
   toggleSafe: 0
