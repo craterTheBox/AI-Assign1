@@ -108,6 +108,9 @@ public class FPSController : MonoBehaviour
     }
 
     void Movement() { //This whole script is borked. Change all this
+        if (cameraPause)
+            return;
+
         float horiInput = 0.0f;
         float vertInput = 0.0f;
         

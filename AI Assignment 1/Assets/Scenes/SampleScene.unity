@@ -496,8 +496,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 220}
-  m_SizeDelta: {x: 280, y: 30}
+  m_AnchoredPosition: {x: -32, y: 220}
+  m_SizeDelta: {x: 320, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &317485142
 MonoBehaviour:
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: /Resources/example-test.txt
+  m_Text: AI Assignment 1 Build\Probabilities\example.txt
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1405,8 +1405,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Put the .txt file in the ______ folder and add the title to the path,
-    replacing the example. '
+  m_text: 'Type in the path and you''ll be good to go. It can be in the build folder
+    or anywhere on your system. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1863,7 +1863,10 @@ MonoBehaviour:
 
 
     [Tab] to toggle the cursor
-    (so you can type in the box)'
+    (so you can type in the box)
+
+
+    [Esc] to close game'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2492,7 +2495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "/Resources/example-test.txt\u200B"
+  m_text: "AI Assignment 1 Build\\Probabilities\\example.txt\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3119,9 +3122,8 @@ MonoBehaviour:
   - {fileID: 1793851497}
   - {fileID: 1857061011}
   - {fileID: 183629980}
-  useFile: 1
   filename: Assets/probabilities.txt
-  file: {fileID: 4900000, guid: eefea9fe44e1bda4baa78d7a4a7433d7, type: 3}
+  path: {fileID: 317485140}
   toggleHot: 0
   toggleNoisy: 0
   toggleSafe: 0

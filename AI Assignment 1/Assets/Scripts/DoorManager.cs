@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using TMPro;
 
 public class DoorManager : MonoBehaviour
 {
@@ -18,9 +19,9 @@ public class DoorManager : MonoBehaviour
 
     [Header("File")]
     [Tooltip("This is the stuff for the .txt file.")]
-    [SerializeField] bool useFile; //when true, this will attempt to use the file
     [SerializeField] string filename; //the name of the file, this is to make sure reading the file works properly
-    [SerializeField] TextAsset file;
+    [SerializeField] GameObject path;
+    string textInput = "";
 
     bool[,] txtFile = new bool[8, 3]; // [x, y] x = number of variations, y = hot, noisy, safe
     float[] percOfDoors = new float[8]; // 8 variations
@@ -36,19 +37,9 @@ public class DoorManager : MonoBehaviour
 
     void Start()
     {
-        ReadTextFile();
-
+        //Initializes the doors to the file provided
+        ReadTextFile(filename);
         SetDoorProperties();
-
-        /*
-        if (useFile && ((filename != "") || file != null)) {
-            print("Using file located at \"" + filename + "\" for probabilities or " + file.name);
-
-            ReadTextFile();
-
-            SetDoorProperties();
-        }
-        //*/
         
         //This function does exactly what the main one does, except it doesn't read a file
         //Used for testing purposes
@@ -62,18 +53,26 @@ public class DoorManager : MonoBehaviour
         ToggleNoisyDoor();
         ToggleSafeDoor();
         //END OF DEVELOPER STUFF
+
+        textInput = path.GetComponent<TMP_InputField>().text;   //this line took over 2 hours to get working
+
+        if (textInput != filename && File.Exists(textInput)) {    //Just so it doesn't spam the search when you've found it
+            ReadTextFile(textInput);
+            SetDoorProperties();
+            filename = textInput;
+        }
     }
 
-    bool ReadTextFile() {
-        if (filename == "" || file == null) {
+    bool ReadTextFile(string _path) {
+        if (_path == "") {
             return false;
         }
 
         string lines = "";
 
-        StreamReader reader = new StreamReader(filename);
+        StreamReader reader = new StreamReader(_path);
 
-        lines = reader.ReadLine(); //Header
+        lines = reader.ReadLine(); //Header is omitted from the data reading
 
         for (int i = 0; !reader.EndOfStream; i++) {
             lines = reader.ReadLine();
@@ -120,6 +119,7 @@ public class DoorManager : MonoBehaviour
             if (whichDoor >= numOfDoors[doorVariation]) {
                 //if the door number in the variation exceeds the amount of doors in that variation, reset the door number for the variation and move to the next one
                 whichDoor = 0;
+                if (doorVariation >= doorProps.Length) break;
                 doorVariation++;
             }
             if (whichDoor < numOfDoors[doorVariation]) { //if the current door is more than the total number of doors for this variation
